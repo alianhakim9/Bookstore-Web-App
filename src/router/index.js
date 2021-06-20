@@ -34,6 +34,11 @@ const router = new VueRouter({
       path: '/books',
       name: 'books',
       component: () => import('../views/Books.vue')
+    },
+    {
+      path: '/category/:slug',
+      name: 'category',
+      component: () => import('../views/Category.vue')
     }
   ]
 })
