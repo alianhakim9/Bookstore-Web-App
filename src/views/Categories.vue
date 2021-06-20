@@ -13,7 +13,10 @@
               <v-container fill-height fluid pa-2>
                 <v-layout fill-height>
                   <v-flex xs12 align-end flexbox>
-                    <span class="title white--text text-block" v-text="category.name"></span>
+                    <span
+                      class="title white--text text-block"
+                      v-text="category.name"
+                    ></span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -39,7 +42,12 @@
     <template>
       <div class="text-xs-center">
         <!-- Kode untuk link paging halaman -->
-        <v-pagination v-model="page" @input="go" :length="lengthPage" :total-visible="4"></v-pagination>
+        <v-pagination
+          v-model="page"
+          @input="go"
+          :length="lengthPage"
+          :total-visible="4"
+        ></v-pagination>
       </div>
     </template>
   </div>
@@ -51,7 +59,7 @@ export default {
     return {
       categories: [],
       page: 0,
-      lengthPage: 0
+      lengthPage: 0,
     };
   },
   methods: {
@@ -68,21 +76,20 @@ export default {
       }
       this.axios
         .get(url)
-        .then(response => {
+        .then((response) => {
           let response_data = response.data;
           let categories = response_data.data;
           this.lengthPage = response.data.data.last_page;
           this.categories = categories.data;
-          console.log(categories.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.message);
         });
-    }
+    },
   },
   created() {
     this.go();
-  }
+  },
 };
 </script>
 

@@ -9,7 +9,10 @@
               <v-container fill-height fluid pa-2>
                 <v-layout fill-height>
                   <v-flex xs12 align-end flexbox>
-                    <span class="title white--text text-block" v-text="book.title"></span>
+                    <span
+                      class="title white--text text-block"
+                      v-text="book.title"
+                    ></span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -32,7 +35,12 @@
     </v-container>
     <template>
       <div class="text-xs-center">
-        <v-pagination v-model="page" @input="go" :length="lengthPage" :total-visible="4"></v-pagination>
+        <v-pagination
+          v-model="page"
+          @input="go"
+          :length="lengthPage"
+          :total-visible="4"
+        ></v-pagination>
       </div>
     </template>
   </div>
@@ -57,7 +65,7 @@ export default {
     return {
       books: [],
       page: 0,
-      lengthPage: 0
+      lengthPage: 0,
     };
   },
   methods: {
@@ -74,20 +82,20 @@ export default {
       }
       this.axios
         .get(url)
-        .then(response => {
+        .then((response) => {
           let response_data = response.data;
           let books = response_data.data;
           this.lengthPage = response.data.data.last_page;
           this.books = books.data;
           console.log(books.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response);
         });
-    }
+    },
   },
   created() {
     this.go();
-  }
+  },
 };
 </script>
