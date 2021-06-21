@@ -30,3 +30,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Purpose of the project
+dibuat sebagai salah satu tugas praktikum mata kuliah Web Design
