@@ -1,4 +1,7 @@
-# bookstore
+# Bookstore
+
+### Screenshot
+![image](https://user-images.githubusercontent.com/51102459/122835021-df5d2a00-d319-11eb-93b4-e586cf47af8c.png)
 
 ## Project setup
 ```
