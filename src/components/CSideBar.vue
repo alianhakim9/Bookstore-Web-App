@@ -11,21 +11,25 @@
     <v-list>
       <v-list-item>
         <!-- tombol register -->
-        <v-btn depressed block rounded color="secondary" class="white--text"
-          >Register <v-icon right dark>person_add</v-icon>
+        <v-btn depressed @click="register()" block rounded color="secondary" class="white--text">
+          Register
+          <v-icon right dark>person_add</v-icon>
         </v-btn>
       </v-list-item>
 
       <v-list-item>
         <!-- tombol login -->
         <v-btn
+          @click="login()"
           block
           rounded
           depressed
           color="accent lighten-1"
           class="white--text"
-          >Login <v-icon right dark>lock_open</v-icon></v-btn
         >
+          Login
+          <v-icon right dark>lock_open</v-icon>
+        </v-btn>
         <v-btn></v-btn>
       </v-list-item>
     </v-list>
@@ -59,12 +63,14 @@ export default {
   data: () => ({
     items: [
       { title: "Home", icon: "dashboard", route: "home" },
-      { title: "About", icon: "question_answer", route: "about" },
-    ],
+      { title: "About", icon: "question_answer", route: "about" }
+    ]
   }),
   computed: {
     ...mapGetters({
       sideBar: "sideBar",
+      user: "auth/user",
+      guest: "auth/guest"
     }),
     drawer: {
       get() {
@@ -72,13 +78,53 @@ export default {
       },
       set(value) {
         this.setSideBar(value);
-      },
-    },
+      }
+    }
   },
   methods: {
     ...mapActions({
       setSideBar: "setSideBar",
+      setStatusDialog: "dialog/setStatus",
+      setComponent: "dialog/setComponent",
+      setAuth: "auth/set",
+      setAlert: "alert/set"
     }),
-  },
+    login() {
+      this.setStatusDialog(true);
+      this.setComponent("login");
+      this.setSideBar(false);
+    },
+    register() {
+      this.setStatusDialog(true);
+      this.setComponent("register");
+      this.setSideBar(false);
+    },
+    logout() {
+      let config = {
+        headers: {
+          Authorization: "Bearer" + this.user.api_token
+        }
+      };
+      this.axios
+        .post("/logout", {}, config)
+        .then(() => {
+          this.setAuth({});
+          this.setAlert({
+            status: true,
+            text: "Logout succesfully",
+            type: "success"
+          });
+          this.setSideBar(false);
+        })
+        .catch(error => {
+          let responses = error.response;
+          this.setAlert({
+            status: true,
+            text: responses.data.message,
+            type: "error"
+          });
+        });
+    }
+  }
 };
 </script>

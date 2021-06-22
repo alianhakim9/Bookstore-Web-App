@@ -13,10 +13,7 @@
               <v-container fill-height fluid pa-2>
                 <v-layout layout fill-height>
                   <v-flex xs12 align-end flexbox>
-                    <span
-                      class="title white--text text-block"
-                      v-text="category.name"
-                    ></span>
+                    <span class="title white--text text-block" v-text="category.name"></span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -52,7 +49,9 @@
             <v-img :src="getImage('/books/' + book.cover)">
               <v-container fill-height fluid pa-2>
                 <v-layout fill-height>
-                  <v-flex xs12 align-end flexbox></v-flex>
+                  <v-flex xs12 align-end flexbox>
+                    <span class="title white--text text-block" v-text="book.title"></span>
+                  </v-flex>
                 </v-layout>
               </v-container>
             </v-img>
@@ -79,7 +78,7 @@
 export default {
   data: () => ({
     categories: [],
-    books: [],
+    books: []
   }),
   methods: {
     getImage(image) {
@@ -87,32 +86,32 @@ export default {
         return process.env.VUE_APP_BACKEND_URL + "images" + image;
       }
       return process.env.VUE_APP_BACKEND_URL + "/images/unavailable.jpg";
-    },
+    }
   },
   created() {
     let count = 4;
     this.axios
       .get(`/categories/random/${count}`)
-      .then((response) => {
+      .then(response => {
         let categories = response.data.data;
         this.categories = categories;
       })
-      .catch((error) => {
+      .catch(error => {
         let response = error.response;
         console.log(response);
       });
     count = 8;
     this.axios
       .get(`/books/top/${count}`)
-      .then((response) => {
+      .then(response => {
         let books = response.data.data;
         this.books = books;
       })
-      .catch((error) => {
+      .catch(error => {
         let response = error.response;
         this.response = response;
       });
-  },
+  }
 };
 </script>
 
