@@ -22,8 +22,14 @@ export default {
                 cover: payload.cover,
                 price: payload.price,
                 weight: payload.weight,
-                quantity: ++payload.quantity
+                quantity: payload.quantity
             });
+            if (payload.quantity <= 0) {
+                state.carts.splice(idx, 1);
+            }
+        },
+        set: (state, payload) => {
+            state.carts = payload;
         }
     },
     actions: {
@@ -32,6 +38,7 @@ export default {
             if (!cartItem) {
                 commit('insert', payload)
             } else {
+                cartItem.quantity++;
                 commit('update', cartItem)
             }
         }

@@ -51,11 +51,18 @@ export default {
     ...mapActions({
       setStatusDialog: "dialog/setStatus"
     }),
+    getImage(image) {
+      if (image != null && image.length > 0) {
+        return process.env.VUE_APP_BACKEND_URL + "images" + image;
+      }
+      return process.env.VUE_APP_BACKEND_URL + "/images/unavailable.jpg";
+    },
     close() {
       this.setStatusDialog(false);
     },
     doSearch() {
       let keyword = this.keyword;
+      console.log(this.keyword);
       if (keyword.length > 0) {
         this.axios
           .get("/books/search/" + keyword)

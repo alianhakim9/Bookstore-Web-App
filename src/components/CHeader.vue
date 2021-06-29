@@ -10,7 +10,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn icon>
+    <v-btn icon @click="cart()">
       <v-badge left overlap color="orange">
         <span slot="badge" v-if="countCart > 0">{{ countCart }}</span>
         <span slot="badge" v-else>0</span>
@@ -38,16 +38,23 @@ export default {
   methods: {
     ...mapActions({
       setSideBar: "setSideBar",
-      setStatusDialog: "dialog/setStatus"
+      setStatusDialog: "dialog/setStatus",
+      setComponent: "dialog/setComponent"
     }),
     search() {
       this.setStatusDialog(true);
       this.setComponent("search");
       this.setSideBar(false);
+    },
+    cart() {
+      this.setStatusDialog(true);
+      this.setComponent("cart");
+      this.setSideBar(false);
     }
   },
   computed: {
     ...mapGetters({
+      sideBar: "sideBar",
       countCart: "cart/count"
     }),
     isHome() {

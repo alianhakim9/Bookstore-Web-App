@@ -34,7 +34,7 @@
           counter
           @click:append="showPassword = !showPassword"
         ></v-text-field>
-        <v-checkbox></v-checkbox>
+        <v-checkbox>Do You Agree With Our Privacy Policy?</v-checkbox>
         <div class="text-xs-center">
           <v-btn color="primary" :disabled="!valid" @click="submit">Submit</v-btn>
           <v-icon>person_add</v-icon>

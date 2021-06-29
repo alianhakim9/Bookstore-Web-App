@@ -21,7 +21,7 @@
           :append-icon="showPassword ? 'visibility' : 'visibility_off'"
           :rules="passwordRules"
           :type="showPassword ? 'text' : 'password'"
-          ;label="password"
+          label="password"
           hint="At least 6 characters"
           counter
           @click:append="showPassword = !showPassword"

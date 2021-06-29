@@ -19,7 +19,6 @@
     <!-- <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialogbottom-transition">
       <search />
     </v-dialog>-->
-
     <keep-alive>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialogbottom-transition">
         <component :is="currentComponent"></component>
@@ -60,6 +59,7 @@ export default {
     }),
     dialog: {
       get() {
+        console.log(this.$store.getters);
         return this.statusDialog;
       },
       set(value) {

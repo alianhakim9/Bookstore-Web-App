@@ -46,7 +46,6 @@
         <v-list-item-action>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-action>
-
         <v-list-item-content>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item-content>
@@ -63,7 +62,9 @@ export default {
   data: () => ({
     items: [
       { title: "Home", icon: "dashboard", route: "home" },
-      { title: "About", icon: "question_answer", route: "about" }
+      { title: "About", icon: "question_answer", route: "about" },
+      { title: "Register", icon: "person_add", route: "register" },
+      { title: "Login", icon: "lock_open", route: "login" }
     ]
   }),
   computed: {

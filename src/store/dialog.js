@@ -1,8 +1,17 @@
 export default {
     namespaced: true,
     state: {
-        state: false,
-        component: ''
+        status: false,
+        component: '',
+    },
+
+    actions: {
+        setStatus: ({ commit }, status) => {
+            commit('setStatus', status)
+        },
+        setComponent: ({ commit }, component) => {
+            commit('setComponent', component);
+        }
     },
     mutations: {
         setStatus: (state, status) => {
@@ -10,14 +19,6 @@ export default {
         },
         setComponent: (state, component) => {
             state.component = component;
-        }
-    },
-    actions: {
-        setStatus: ({ commit }, status) => {
-            commit('setStatus', status)
-        },
-        setComponent: ({ commit }, component) => {
-            commit('setComponent', component);
         }
     },
     getters: {
