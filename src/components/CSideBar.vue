@@ -7,8 +7,7 @@
       </v-btn>
       <v-toolbar-title>Bookstore</v-toolbar-title>
     </v-toolbar>
-
-    <v-list>
+    <v-list v-if="guest">
       <v-list-item>
         <!-- tombol register -->
         <v-btn depressed @click="register()" block rounded color="secondary" class="white--text">
@@ -31,6 +30,30 @@
           <v-icon right dark>lock_open</v-icon>
         </v-btn>
         <v-btn></v-btn>
+      </v-list-item>
+    </v-list>
+
+    <v-list v-if="!guest">
+      <v-list-item>
+        <v-list-item-avatar>
+          <img v-if="user.avatar == null" :src="getImage('/unavailable.jpg')" />
+          <img v-else :src="getImage('/users/' + user.avatar)" />
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>{{ user.name }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item>
+        <v-btn
+          block
+          small
+          rounded
+          depressed
+          color="error lighten-1"
+          class="white--text"
+          @click.stop="logout()"
+        >Logout</v-btn>
+        <v-icon small right dark>settings_power</v-icon>
       </v-list-item>
     </v-list>
 
@@ -62,9 +85,7 @@ export default {
   data: () => ({
     items: [
       { title: "Home", icon: "dashboard", route: "home" },
-      { title: "About", icon: "question_answer", route: "about" },
-      { title: "Register", icon: "person_add", route: "register" },
-      { title: "Login", icon: "lock_open", route: "login" }
+      { title: "About", icon: "question_answer", route: "about" }
     ]
   }),
   computed: {
@@ -90,6 +111,12 @@ export default {
       setAuth: "auth/set",
       setAlert: "alert/set"
     }),
+    getImage(image) {
+      if (image != null && image.length > 0) {
+        return process.env.VUE_APP_BACKEND_URL + "images" + image;
+      }
+      return process.env.VUE_APP_BACKEND_URL + "/images/unavailable.jpg";
+    },
     login() {
       this.setStatusDialog(true);
       this.setComponent("login");
@@ -103,13 +130,13 @@ export default {
     logout() {
       let config = {
         headers: {
-          Authorization: "Bearer" + this.user.api_token
+          Authorization: "Bearer " + this.user.api_token
         }
       };
       this.axios
         .post("/logout", {}, config)
         .then(() => {
-          this.setAuth({});
+          this.setAuth({}); // kosongkan auth ketika logout
           this.setAlert({
             status: true,
             text: "Logout succesfully",

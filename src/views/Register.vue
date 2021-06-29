@@ -34,10 +34,17 @@
           counter
           @click:append="showPassword = !showPassword"
         ></v-text-field>
-        <v-checkbox>Do You Agree With Our Privacy Policy?</v-checkbox>
+        <v-checkbox
+          v-model="checkbox"
+          :rules="[v => !!v || 'You must agree to continue!']"
+          label="Do You agree with out privacy policy?"
+          required
+        ></v-checkbox>
         <div class="text-xs-center">
-          <v-btn color="primary" :disabled="!valid" @click="submit">Submit</v-btn>
-          <v-icon>person_add</v-icon>
+          <v-btn color="primary" :disabled="!valid" @click="submit">
+            Submit&nbsp;
+            <v-icon>person_add</v-icon>
+          </v-btn>
           <v-btn @click="clear">clear</v-btn>
         </div>
       </v-form>
