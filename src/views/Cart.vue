@@ -43,7 +43,7 @@
         <v-card-text>
           <v-layout wrap>
             <v-flex pa-1 xs6>
-              Total Price ({{ totalQuantity}} items)
+              Total Price ({{ totalQuantity }} items)
               <br />
               <span class="title">Rp. {{ totalPrice.toLocaleString('id-ID') }}</span>
             </v-flex>
@@ -74,6 +74,12 @@ export default {
     })
   },
   methods: {
+    getImage(image) {
+      if (image != null && image.length > 0) {
+        return process.env.VUE_APP_BACKEND_URL + "images" + image;
+      }
+      return process.env.VUE_APP_BACKEND_URL + "/images/unavailable.jpg";
+    },
     ...mapActions({
       setStatusDialog: "dialog/setStatus",
       setAlert: "alert/set",

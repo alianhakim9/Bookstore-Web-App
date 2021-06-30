@@ -2,7 +2,7 @@
   <v-card>
     <v-toolbar dark color="primary">
       <v-btn icon dark @click.native="close">
-        <v-icon></v-icon>
+        <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
     </v-toolbar>

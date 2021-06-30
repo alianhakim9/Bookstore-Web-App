@@ -41,12 +41,32 @@ export default {
                 cartItem.quantity++;
                 commit('update', cartItem)
             }
+        },
+        remove: ({ state, commit }, payload) => {
+            let cartItem = state.carts.find(item => item.id === payload.id);
+            cartItem.quantity--;
+            commit('update', cartItem)
         }
     },
     getters: {
         carts: state => state.carts,
         count: (state) => {
             return state.carts.length;
+        },
+        totalPrice: (state) => {
+            let total = 0;
+            for (let item in state.carts) {
+                total += state.carts[item].price;
+                console.log(state.carts[item].price);
+            }
+            return total;
+        },
+        totalQuantity: (state) => {
+            let quantity = 0;
+            for (let i in state.carts) {
+                quantity += state.carts[i].quantity;
+            }
+            return quantity;
         }
     }
 }
