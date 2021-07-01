@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
@@ -46,17 +47,36 @@ const router = new VueRouter({
       component: () => import('../views/Book.vue')
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/Login.vue')
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('../views/Register.vue')
-    },
+      path: '/checkout',
+      name: 'checkout',
+      component: () => import('../views/Checkout.vue'),
+      meta: { auth: true }
+    }
+
 
   ]
 })
 
+
+router.beforeEach((to, from, next) => {
+  // Jika routing ada meta auth-nya maka
+  if (to.matched.some(record => record.meta.auth)) {
+    // Jika user adalah gues
+    if (store.getters['auth/guest']) {
+      // tampilkan pesan bahwa harus login dulu
+      store.dispatch('alert/set', {
+        status: true,
+        text: 'Login first',
+        color: 'error'
+      });
+      store.dispatch('setPrevUrl', to.path);
+      // tampilkan form login
+      store.dispatch('dialog/setComponent', 'Login')
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+})
 export default router

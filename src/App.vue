@@ -61,7 +61,6 @@ export default {
     }),
     dialog: {
       get() {
-        console.log(this.$store.getters);
         return this.statusDialog;
       },
       set(value) {

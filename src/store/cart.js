@@ -57,7 +57,6 @@ export default {
             let total = 0;
             for (let item in state.carts) {
                 total += state.carts[item].price;
-                console.log(state.carts[item].price);
             }
             return total;
         },
