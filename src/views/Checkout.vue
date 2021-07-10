@@ -321,15 +321,18 @@ export default {
       let formData = new FormData();
       formData.set("courier", courier);
       formData.set("service", service);
-      formData.set("safeCart", safeCart);
+      formData.set("carts", safeCart);
       let config = {
-        Authorization: "Bearer " + this.user.api_token,
+        // Authorization: "Bearer " + this.user.api_token,
+        headers: { Authorization: `Bearer ${this.user.api_token}` },
       };
+      console.log(formData);
       this.axios
-        .post("/payment", config, formData)
+        .post("/payment", formData, config)
         .then((response) => {
           let { data } = response;
-          if (data && data.status == "SUCCESS") {
+          console.log(data);
+          if (data && data.status == "success") {
             this.setPayment(data.data);
             this.$router.push({ path: "/payment" });
             this.setCart([]);
